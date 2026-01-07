@@ -1,0 +1,5 @@
+
+1 = wall 
+E = exit
+P = start position
+C = collectibles
