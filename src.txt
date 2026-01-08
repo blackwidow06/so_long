@@ -1,5 +1,16 @@
-
 1 = wall 
+0 = sol
 E = exit
 P = start position
 C = collectibles
+
+map en map.ber
+dossier map et textures
+
+-> lire la map (read_map) (map_line compter les rangees Y pour pas sortir de la map)
+(map_char combien de caractere par ligne X) je crois que c'est fait
+-> validation complete (pas autre chose que '01Pec') fait aussi je crois
+-> affichage de la map (floodfill / C et E accessible)
+-> deplacement des joueurs (trouver et stocker la position du joueur)
+-> colllectibles + sorties (ouvrir E que si les C sont tous pris)
+-> free/gestion des erreurs
