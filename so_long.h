@@ -28,8 +28,24 @@ int		file_exist(char *map);
 int		map_not_empty(char *map);
 int		is_rectangular(int fd);
 
-// checkmap
+// parsingmap
 int		check_walls(char **map);
 int		one_exit(char **map);
 int		one_player(char **map);
 int		count_collectibles(char **map);
+
+// readmap
+int			count_lines(char *file);
+void		remove_line(char *line);
+char		**read_map(char *file);
+int 		map_line(char **map);
+int 		map_char(char **map);
+int 		valid_chars(char **map);
+void		free_map(char **map);
+
+// mapverif
+char 	**copy_map(char **map);
+void	player_position(char **map, int *player_x, int *player_y);
+void	flood_fill(char **map, int i, int j);
+
+#endif
