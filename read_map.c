@@ -12,7 +12,7 @@
 
 #include "so_long.h"
 
-static int	count_lines(char *file)
+int	count_lines(char *file)
 {
 	int fd;
 	int count;
@@ -20,7 +20,7 @@ static int	count_lines(char *file)
 
 	count  = 0;
 	fd = open(file, O_RDONLY);
-	while (fd < 0)
+	if (fd < 0)
 		return (-1);
 	line = get_next_line(fd);
 	while (line)
@@ -32,29 +32,47 @@ static int	count_lines(char *file)
 	close(fd);
 	return (count);
 }
+void	remove_line(char *line)
+{
+	int 	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '\n')
+		{
+			line[i] = '\0';
+			return ;
+		}
+		i++;
+	}
+}
 char **read_map(char *file)
 {
 	char	**map;
-	int 	line;
-	int 	fd;
-	int 	i;
-	int 	lines;
+	int		fd;
+	int		i;
+	int		lines;
+	char	*line;
 
 	lines = count_lines(file);
 	if (lines <= 0)
 		return (NULL);
+
 	map = malloc(sizeof(char *) * (lines + 1));
 	if (!map)
 		return (NULL);
+
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		return (NULL);
+
 	i = 0;
 	line = get_next_line(fd);
 	while (line)
 	{
-		map[i] = ft_strtrim(line, "\n");
-		free(line);
+		remove_line(line);
+		map[i] = line;
 		i++;
 		line = get_next_line(fd);
 	}
@@ -64,7 +82,7 @@ char **read_map(char *file)
 }
 int 	map_lines(char **map)
 {
-	int 	i;
+	int 	i;.
 
 	i = 0;
 	while (map[i])
@@ -80,7 +98,19 @@ int 	map_char(char **map)
 		i++;
 	return (i);
 }
-int 	valid_chars(int **map)
+void	free_map(char **map)
+{
+	int	i;
+
+	i = 0;
+	while (map[i])
+	{
+		free(map[i]);
+		i++;
+	}
+	free(map);
+}
+int 	valid_chars(char **map)
 {
 	int 	i;
 	int 	j;
@@ -91,11 +121,11 @@ int 	valid_chars(int **map)
 		j = 0;
 		while (map[i][j])
 		{
-			if (map[i][j] != '1') &&
-				(map[i][j] != '0') &&
-				(map[i][j] != 'P') &&
-				(map[i][j] != 'C') &&
-				(map[i][j] != 'E')
+			if (map[i][j] != '1' &&
+				map[i][j] != '0' &&
+				map[i][j] != 'P' &&
+				map[i][j] != 'C' &&
+				map[i][j] != 'E')
 				return (0);
 			j++;
 		}
@@ -103,3 +133,22 @@ int 	valid_chars(int **map)
 	}
 	return (1);
 }
+//int 	main(void)
+//{
+//	char **map;
+//	int 	i;
+
+//	i = 0;
+//	map = read_map("map.ber");
+//	if (!map)
+//	{
+//		printf("erreur lecture de la map\n");
+//		return (1);
+//	}
+//	while (map[i])
+//	{
+//		printf("%s\n", map[i]);
+//		i++;
+//	}
+//	return (0);
+//}
