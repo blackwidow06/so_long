@@ -1,0 +1,42 @@
+
+1 = wall 
+0 = sol
+E = exit
+P = start position
+C = collectibles
+V = deja visite
+
+PX = position X du joueur (colone) (y)
+PY = position Y du joueur (ligne) (i)
+I et J = parcourir la map
+PY et PX = ou est le joueur
+
+W   = 119
+A   = 97
+S   = 115
+D   = 100
+ESC = 65307
+
+map en map.ber
+dossier map et textures
+
+-> verifier la map (floodfill / C et E accessible) 
+	- copie la map
+	- plus aucun C  
+
+-> afficher la map (minilibx)
+	- mlx_init
+	- mlx_new_window
+	- mlx_file_to_image
+	- mlx_imahe_to_window
+
+-> gestion des deplacements
+	- mur = pas de deplacements
+	- C = collecte 
+	- pas de E sans tous les collecte 
+	- ensuite E = victoire
+
+-> fermer le jeu 
+	- ESC = ferme le jeu
+	- liberer la memoire
+	- detruire images et fenetres 
