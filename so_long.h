@@ -56,6 +56,7 @@ void	ft_putnbr_fd(int n, int fd);
 
 /* check_map1.c */
 int		file_exist(char *map);
+int	check_len(int len, int *first_len);
 int		is_rectangular(int fd);
 int		map_not_empty(char *map);
 
