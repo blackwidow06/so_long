@@ -39,34 +39,40 @@ int	map_not_empty(char *map)
 	return (1);
 }
 
+int	check_len(int len, int *first_len)
+{
+	if (*first_len == -1)
+		*first_len = len;
+	else if (len != *first_len)
+		return (0);
+	return (1);
+}
+
 int	is_rectangular(int fd)
 {
-	char    c;
-	int     len;
-	int     first_len;
-	int     bytes;
+	char	c;
+	int		len;
+	int		first_len;
+	int		bytes;
 
 	first_len = -1;
 	len = 0;
-	while ((bytes = read(fd, &c, 1)) > 0)
+	bytes = read(fd, &c, 1);
+	while (bytes > 0)
 	{
 		if (c == '\n')
 		{
-			if (first_len == -1)
-				first_len = len;
-			else if (len != first_len)
+			if (!check_len(len, &first_len))
 				return (0);
 			len = 0;
 		}
 		else
 			len++;
+		bytes = read(fd, &c, 1);
 	}
-	if (len > 0)
-	{
-		if (first_len == -1)
-			first_len = len;
-		else if (len != first_len)
-			return (0);
-	}
+	if (bytes < 0)
+		return (0);
+	if (len > 0 && !check_len(len, &first_len))
+		return (0);
 	return (1);
 }
