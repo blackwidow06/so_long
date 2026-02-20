@@ -1,5 +1,5 @@
 *This project has been created as part of the 42 curriculum by malavaud.*
-
+valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes
 # So Long
 
 ## Description
@@ -81,3 +81,4 @@ AI (ChatGPT) was used to:
 * Suggest conventional sections and descriptions
 
 AI **was not used** to write core code logic, algorithms, map parsing, or game mechanics. All implementation decisions and coding were done manually.
+
